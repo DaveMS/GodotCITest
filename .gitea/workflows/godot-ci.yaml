@@ -14,11 +14,10 @@ jobs:
     runs-on: ubuntu-22.04  # Use 22.04 with godot 4
     container:
       image: barichello/godot-ci:4.4.1
-    steps:
-      - if: ${{ env.ACT }}
-        name: Hack container for local development
-        run: |
-            apt update && apt-get install -y nodejs  
+    steps: 
+      - name: Act Workaround # https://github.com/nektos/act/issues/973
+        if: ${{ env.ACT }}
+        run: curl -fsSL https://deb.nodesource.com/setup_22.x | bash && apt install -y nodejs
       - name: Checkout
         uses: actions/checkout@v4
         with:
