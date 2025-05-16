@@ -15,6 +15,10 @@ jobs:
     container:
       image: barichello/godot-ci:4.4.1
     steps:
+      - if: ${{ env.ACT }}
+        name: Hack container for local development
+        run: |
+            apt update && apt-get install -y nodejs  
       - name: Checkout
         uses: actions/checkout@v4
         with:
